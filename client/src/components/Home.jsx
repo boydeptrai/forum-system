@@ -1,9 +1,32 @@
-import React from 'react'
+import React from "react";
+import { useState } from "react";
 
 const Home = () => {
-  return (
-    <div>Home</div>
-  )
-}
+  const [thread, setThread] = useState("");
 
-export default Home
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log({ thread });
+    setThread();
+  };
+  return (
+    <main className="home">
+      <h2 className="homeTitle">Create a Thread</h2>
+      <form className="homeForm" onChange={handleSubmit}>
+        <div className="home__container">
+          <label htmlFor="thread">Title / Description</label>
+          <input
+            type="text"
+            name="thread"
+            required
+            value={thread}
+            onChange={(e) => e.target.value}
+          />
+        </div>
+        <button className="homeBtn">CREATE THREAD</button>
+      </form>
+    </main>
+  );
+};
+
+export default Home;

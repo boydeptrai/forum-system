@@ -26,7 +26,7 @@ a {
 
 .register,
 .login,
-.hom,
+.home,
 .modal,
 .replies {
   display: flex;
@@ -55,4 +55,45 @@ a {
   color: #fffbf5;
   background-color: #674188;
   margin-bottom: 15px;
+}
+
+.homeForm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  margin-bottom: 30px;
+}
+
+.home__container {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+}
+
+.homeBtn {
+  margin-bottom: 0;
+}
+
+.navbar > h2 {
+  color: #fffbf5;
+  
+}
+
+.navbarRight {
+  display: flex;
+  align-items: center;
+}
+
+.navbarRight > button {
+  padding: 15px;
+  width: 150px;
+  background-color: #f99417;
+  color: #fffbf5;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  margin-left: 15px;
+  cursor: pointer;
+  border-radius: 3px;
 }
