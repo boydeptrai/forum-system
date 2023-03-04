@@ -1,21 +1,45 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate()
 
+  const loginUser = () =>{
+    fetch("http://localhost:4000/api/login",{
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        password
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    .then((res) =>res.json)
+    .then((data) =>{
+      if (data.error_message) {
+        alert(data.error_message)
+      } else {
+        alert(data.message)
+        navigate("/dashboard")
+        localStorage.setItem("_id",data.id)
+      }
+    })
+    .catch((err) =>console.log(err))
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ email, password });
+    loginUser();
     setEmail("");
     setPassword("");
   };
   return (
     <main className="login">
       <h1 className="loginTitle">Log into your account </h1>
-      <form className="loginForm" onChange={handleSubmit}>
+      <form className="loginForm" onSubmit={handleSubmit}>
         <label htmlFor="email">Email Address</label>
         <input
           type="text"
@@ -26,14 +50,14 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        <label htmlFor="email">Email Address</label>
+        <label htmlFor="password">Password</label>
         <input
           type="password"
           name="password"
           required
           id="password"
           value={password}
-          onChange={(e) => setPassword(e.value.password)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button className="loginBtn">SIGN IN</button>
         <p>
