@@ -42,7 +42,14 @@ app.post("/api/register", (req, res) => {
     error_message: " User already exists",
   });
 });
-app.get("/api", (req, res) => {
+
+app.post("/api/create/thread",async (req,res) =>{
+   const {thread,userId} = req.body;
+   const threadId = generateID();
+
+   console.log({userId, threadId,thread})
+})
+app.get("/api",  (req, res) => {
   res.json({
     message: "Hello world",
   });
