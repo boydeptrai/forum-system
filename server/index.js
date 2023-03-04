@@ -8,6 +8,7 @@ app.use(express.json());
 app.use(cors());
 
 const users = [];
+const threadList = [];
 
 //generates a random string as ID
 const generateID = () => Math.random().toString(36).substring(2, 10);
@@ -18,9 +19,9 @@ app.post("/api/login", (req, res) => {
     (user) => user.email === email && user.password === password
   );
   if (result.length !== 1) {
-    return res.json({error_message: "Incorrect Credentials"})
+    return res.json({ error_message: "Incorrect Credentials" });
   }
-  res.json({message: "Login successfully!", id: result[0].id})
+  res.json({ message: "Login successfully!", id: result[0].id });
 });
 
 app.post("/api/register", (req, res) => {
@@ -43,13 +44,31 @@ app.post("/api/register", (req, res) => {
   });
 });
 
-app.post("/api/create/thread",async (req,res) =>{
-   const {thread,userId} = req.body;
-   const threadId = generateID();
+app.post("/api/create/thread", async (req, res) => {
+  const { thread, userId } = req.body;
+  const threadId = generateID();
 
-   console.log({userId, threadId,thread})
+  //add post details to the array
+  threadList.unshift({
+    id: threadId,
+    title: thread,
+    userId,
+    replies: [],
+    likes: [],
+  });
+
+  res.json({
+    message: "Thread create successfully!",
+    threads: threadList,
+  });
+});
+
+app.get("/api/all/threads",(req,res) =>{
+  res,json({
+    threads: threadList
+  })
 })
-app.get("/api",  (req, res) => {
+app.get("/api", (req, res) => {
   res.json({
     message: "Hello world",
   });
