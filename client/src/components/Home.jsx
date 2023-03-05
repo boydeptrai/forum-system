@@ -16,7 +16,10 @@ const Home = () => {
       if (!localStorage.getItem("_id")) {
         navigate("/");
       } else {
-        console.log("Authenticated");
+        fetch("http://localhost:4000/api/all/threads")
+          .then((res) => res.json())
+          .then((data) => setThreadList(data.threads))
+          .catch((err) => console.log(err));
       }
     };
     checkUser();
