@@ -94,6 +94,16 @@ app.post("/api/thread/like", (req, res) => {
   });
 });
 
+app.post("/api/thread/replies", (req, res) => {
+  const { id } = req.body;
+  const result = threadList.filter((thread) => thread.id === id);
+
+  res.json({
+    replies: result[0].replies,
+    title: result[0].title,
+  });
+});
+
 app.get("/api", (req, res) => {
   res.json({
     message: "Hello world",
