@@ -30,7 +30,7 @@ const Home = () => {
       method: "POST",
       body: JSON.stringify({
         thread,
-        userId: localStorage.getItem("_id"),
+        id: localStorage.getItem("_id"),
       }),
       headers: {
         "Content-Type": "application/json",
@@ -47,7 +47,7 @@ const Home = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     createThread();
-    setThread();
+    setThread("");
   };
   return (
     <>

@@ -39,6 +39,13 @@ a {
 
 }
 
+.registerTitle,
+.loginTitle,
+.homeTitle,
+.repliesTitle {
+	margin-bottom: 30px;
+}
+
 .registerBtn,
 .loginBtn,
 .homeBtn,
