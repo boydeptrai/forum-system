@@ -11,6 +11,26 @@ const Replies = () => {
   const navigate = useNavigate()
   const {id} = useParams()
 
+  const  addReply = () =>{
+    fetch("http://localhost:4000/api/create/reply",{
+      method: "POST",
+      body:JSON.stringify({
+        id,
+        userId: localStorage.getItem("_id"),
+        reply,
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      },
+    })
+    .then((res) =>res.json)
+    .then((data) =>{
+      alert(data.message)
+      navigate("/dashboard")
+    })
+    .catch((err) =>console.log(err))
+  }
+
   useEffect(() =>{
     const fetchReplies = () =>{
       fetch("http://localhost:4000/api/thread/replies",{
@@ -34,7 +54,7 @@ const Replies = () => {
 
   const handleSubmitReply = (e) => {
     e.preventDefault();
-    console.log({ reply });
+    addReply();
     setReply("");
   };
   return (
@@ -43,12 +63,12 @@ const Replies = () => {
       <form className="modal__content" onSubmit={handleSubmitReply}>
         <label htmlFor="reply">Reply to the thread</label>
         <textarea
+          rows={5}
+          value={reply}
           className="modalInput"
           name="reply"
           type="text"
-          value={reply}
           onChange={(e) => setReply(e.target.value)}
-          rows={5}
         ></textarea>
         <button className="modalBtn">SEND</button>
       </form>
